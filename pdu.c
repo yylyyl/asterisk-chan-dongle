@@ -457,15 +457,15 @@ static int pdu_parse_number(char ** pdu, size_t * pdu_length, unsigned digits, i
 		{
 			char digit;
 			if(*toa == NUMBER_TYPE_INTERNATIONAL)
-				*number++ = '+';
-			// BEGIN oioki proposed patch 2013-07-24
-			if(*toa == NUMBER_TYPE_ALPHANUMERIC)
 			{
-				for(; syms > 0; syms --, *pdu += 1, *pdu_length -= 1)
+				*number++ = '+';
+			}
+			else if(*toa == NUMBER_TYPE_ALPHANUMERIC)
+			{
+				for(; syms > 0; syms--, *pdu += 1, *pdu_length -= 1)
 					*number++ = pdu[0][0];
 				return *pdu - begin;
 			}
-			// END oioki proposed patch 2013-07-24
 			for(; syms > 0; syms -= 2, *pdu += 2, *pdu_length -= 2)
 			{
 				digit = pdu_code2digit(pdu[0][1]);
